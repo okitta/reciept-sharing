@@ -3,9 +3,11 @@ const prisma = new PrismaClient()
 
 //create a new recipe
 const createRecipe = async (recipe) => {
-    console.log(recipe);
     return await prisma.recipe.create({
-        data: recipe
+        data: recipe,
+        include: {
+            ingredients: true
+        }
     })
 }
 
