@@ -24,7 +24,7 @@ const getRecipes = async (req, res) => {
 
 const getRecipeById = async (req, res) => {
     try {
-        const recipe = await Recipe.getRecipeById(req.params.id);
+        const recipe = await Recipe.getRecipeById(parseInt(req.params.id));
         if (!recipe) {
             return res.status(404).send('Recipe not found');
         }
@@ -37,7 +37,7 @@ const getRecipeById = async (req, res) => {
 // get recipes by user id
 const getRecipeByUserId = async (req, res) => {
     try {
-        const recipes = await Recipe.getRecipeByUserId(req.params.userId);
+        const recipes = await Recipe.getRecipeByUserId(parseInt(req.params.userId));
         res.status(200).send(recipes);
     } catch (error) {
         res.status(400).send(error);
@@ -47,11 +47,11 @@ const getRecipeByUserId = async (req, res) => {
 //update recipe by id
 const updateRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.getRecipeById(req.params.id);
+        const recipe = await Recipe.getRecipeById(parseInt(req.params.id));
         if (!recipe) {
             return res.status(404).send('Recipe not found');
         }
-        const updatedRecipe = await Recipe.updateRecipe(req.params.id, req.body);
+        const updatedRecipe = await Recipe.updateRecipe(parseInt(req.params.id), req.body);
         res.status(200).send(updatedRecipe);
     } catch (error) {
         res.status(400).send(error);
@@ -62,11 +62,11 @@ const updateRecipe = async (req, res) => {
 
 const deleteRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.getRecipeById(req.params.id);
+        const recipe = await Recipe.getRecipeById(parseInt(req.params.id));
         if (!recipe) {
             return res.status(404).send('Recipe not found');
         }
-        await Recipe.deleteRecipe(req.params.id);
+        await Recipe.deleteRecipe(parseInt(req.params.id));
         res.status(204).send();
     } catch (error) {
         res.status(400).send(error);

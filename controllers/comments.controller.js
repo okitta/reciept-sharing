@@ -15,7 +15,7 @@ const createComment = async (req, res) => {
 
 const getCommentById = async (req, res) => {
     try {
-        const comment = await Comment.getCommentById(req.params.id);
+        const comment = await Comment.getCommentById(parseInt(req.params.id));
         if (!comment) {
             return res.status(404).send('Comment not found');
         }
@@ -29,7 +29,7 @@ const getCommentById = async (req, res) => {
 
 const getCommentByUserId = async (req, res) => {
     try {
-        const comments = await Comment.getCommentByUserId(req.params.userId);
+        const comments = await Comment.getCommentByUserId(parseInt(req.params.userId));
         res.status(200).send(comments);
     } catch (error) {
         res.status(400).send(error);
@@ -40,7 +40,7 @@ const getCommentByUserId = async (req, res) => {
 
 const getCommentByRecipeId = async (req, res) => {
     try {
-        const comments = await Comment.getCommentByRecipeId(req.params.recipeId);
+        const comments = await Comment.getCommentByRecipeId(parseInt(req.params.recipeId));
         res.status(200).send(comments);
     } catch (error) {
         res.status(400).send(error);
@@ -51,11 +51,11 @@ const getCommentByRecipeId = async (req, res) => {
 
 const updateComment = async (req, res) => {
     try {
-        const comment = await Comment.getCommentById(req.params.id);
+        const comment = await Comment.getCommentById(parseInt(req.params.id));
         if (!comment) {
             return res.status(404).send('Comment not found');
         }
-        const updatedComment = await Comment.updateComment(req.params.id, req.body);
+        const updatedComment = await Comment.updateComment(parseInt(req.params.id), req.body);
         res.status(200).send(updatedComment);
     } catch (error) {
         res.status(400).send(error);
@@ -66,11 +66,11 @@ const updateComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
     try {
-        const comment = await Comment.getCommentById(req.params.id);
+        const comment = await Comment.getCommentById(parseInt(req.params.id));
         if (!comment) {
             return res.status(404).send('Comment not found');
         }
-        await Comment.deleteComment(req.params.id);
+        await Comment.deleteComment(parseInt(req.params.id));
         res.status(204).send();
     } catch (error) {
         res.status(400).send(error);

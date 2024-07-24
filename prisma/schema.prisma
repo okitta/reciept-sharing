@@ -28,7 +28,7 @@ model Recipe{
   id Int @id @default(autoincrement())
   title String
   instructions String
-  preparation DateTime
+  preparation String
   author   User @relation(fields: [authorId], references: [id])
   authorId Int
   ingredients Ingredients[]
