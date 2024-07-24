@@ -58,7 +58,7 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
     try {
-        const user = await User.getUserById(req.params.id);
+        const user = await User.getUserById(parseInt(req.params.id));
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -72,11 +72,11 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const user = await User.getUserById(req.params.id);
+        const user = await User.getUserById(parseInt(req.params.id));
         if (!user) {
             return res.status(404).send('User not found');
         }
-        const updatedUser = await User.updateUser(req.params.id, req.body);
+        const updatedUser = await User.updateUser(parseInt(req.params.id), req.body);
         res.status(200).send(updatedUser);
     } catch (error) {
         res.status(400).send(error);
@@ -87,12 +87,12 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const user = await User.getUserById(req.params.id);
+        const user = await User.getUserById(parseInt(req.params.id));
         if (!user) {
             return res.status(404).send('User not found');
         }
-        await User.deleteUser(req.params.id);
-        res.status(204).send();
+        await User.deleteUser(parseInt(req.params.id));
+        res.status(204).send("User deleted");
     } catch (error) {
         res.status(400).send(error);
     }
