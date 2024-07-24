@@ -3,6 +3,10 @@ const Comment = require('../model/comment.model');
 //create a new comment
 const createComment = async (req, res) => {
     try {
+        const userId = req.body.authorId;
+        const recipeId = req.body.recipeId;
+        req.body.authorId = parseInt(userId);
+        req.body.recipeId = parseInt(recipeId);
         const newComment = await Comment.createComment(req.body);
         res.status(201).send(newComment);
     } catch (error) {
